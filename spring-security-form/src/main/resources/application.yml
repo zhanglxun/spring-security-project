@@ -1,0 +1,9 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: Demo
+  security:
+    user:
+      name: admin
+      password: 12345678
