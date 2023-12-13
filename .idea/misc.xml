@@ -7,10 +7,11 @@
         <option value="$PROJECT_DIR$/security-security-base-1/pom.xml" />
         <option value="$PROJECT_DIR$/spring-security-base-2/pom.xml" />
         <option value="$PROJECT_DIR$/spring-security-form/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-security-base-1/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
