@@ -11,4 +11,14 @@ public class authController {
         return "hello ,"+ username;
     }
 
+    @GetMapping("hello2")
+    public String hello2(String username) {
+        return "hello2,"+ username;
+    }
+
+    @GetMapping("hello3")
+    public String hello3(String username) {
+        return "hello3,"+ username;
+    }
+
 }

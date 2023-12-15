@@ -1,14 +1,12 @@
-package com.sense.base.config;
+package com.sense.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -21,8 +19,8 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .anyRequest()
                         .authenticated())
-                        // 配置httpBasic
-                        .httpBasic(Customizer.withDefaults());
+                // 配置httpBasic
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
 
@@ -30,5 +28,7 @@ public class SecurityConfig {
         //.
 
     }
+
+
 
 }

@@ -8,6 +8,9 @@
         <option value="$PROJECT_DIR$/spring-security-base-2/pom.xml" />
         <option value="$PROJECT_DIR$/spring-security-form/pom.xml" />
         <option value="$PROJECT_DIR$/spring-security-base-1/pom.xml" />
+        <option value="$PROJECT_DIR$/srping-cloud/pom.xml" />
+        <option value="$PROJECT_DIR$/srping-cloud/cloud-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/srping-cloud/cloud-gateway/pom.xml" />
       </list>
     </option>
   </component>
