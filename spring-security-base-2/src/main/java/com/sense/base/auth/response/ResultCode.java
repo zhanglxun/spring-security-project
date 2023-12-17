@@ -1,4 +1,4 @@
-package com.sense.base.response;
+package com.sense.base.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

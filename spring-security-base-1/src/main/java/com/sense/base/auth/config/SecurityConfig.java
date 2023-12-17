@@ -1,4 +1,4 @@
-package com.sense.base.config;
+package com.sense.base.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

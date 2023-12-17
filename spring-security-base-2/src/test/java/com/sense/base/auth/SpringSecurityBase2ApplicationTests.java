@@ -7,7 +7,7 @@
 
 //@Slf4j
 //@AutoConfigureMockMvc
-//@SpringBootTest(classes = SpringSecurityBase2Application.class)
+//@SpringBootTest(classes = com.sense.base.auth.SpringSecurityBase2Application.class)
 //class SpringSecurityBase2ApplicationTests {
 //
 //    @Test
