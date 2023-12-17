@@ -18,6 +18,7 @@
     <modules>
         <module>cloud-eureka</module>
         <module>cloud-gateway</module>
+        <module>provider-auth</module>
     </modules>
 
 </project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sense.provider.auth.mapper.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.sense.model.auth.Menu">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="sortId" column="sort_id" jdbcType="INTEGER"/>
+            <result property="orgSortId" column="org_sort_id" jdbcType="INTEGER"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="orgParentId" column="org_parent_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="orgAliasName" column="org_alias_name" jdbcType="VARCHAR"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="orgFlag" column="org_flag" jdbcType="TINYINT"/>
+            <result property="isOrg" column="is_org" jdbcType="TINYINT"/>
+            <result property="iconClass" column="icon_class" jdbcType="VARCHAR"/>
+            <result property="functionType" column="function_type" jdbcType="INTEGER"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="systemCode" column="system_code" jdbcType="INTEGER"/>
+            <result property="createId" column="create_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="modifyId" column="modify_id" jdbcType="BIGINT"/>
+            <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sort_id,org_sort_id,
+        parent_id,org_parent_id,name,
+        org_alias_name,url,org_flag,
+        is_org,icon_class,function_type,
+        description,system_code,create_id,
+        create_time,modify_id,modify_time
+    </sql>
+</mapper>

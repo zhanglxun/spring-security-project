@@ -11,6 +11,7 @@
         <module name="spring-security-base-2" />
         <module name="spring-security-form" />
         <module name="cloud-eureka" />
+        <module name="provider-auth" />
         <module name="cloud-gateway" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cloud-eureka" options="-parameters" />
       <module name="cloud-gateway" options="-parameters" />
+      <module name="provider-auth" options="-parameters" />
       <module name="spring-security-base-1" options="-parameters" />
       <module name="spring-security-base-2" options="-parameters" />
       <module name="spring-security-form" options="-parameters" />
