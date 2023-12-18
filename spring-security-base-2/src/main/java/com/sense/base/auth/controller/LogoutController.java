@@ -19,8 +19,8 @@ public class LogoutController {
 
 
 
-    @GetMapping("/logout")
-    public String logout(){
+    @GetMapping("/logoutSuccess")
+    public String logoutSuccess(){
         return "注销成功";
     }
 

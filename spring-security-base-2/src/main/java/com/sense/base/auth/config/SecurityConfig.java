@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -28,28 +31,44 @@ public class SecurityConfig {
         // 配置关闭csrf机制，
         http.csrf(csrf -> csrf.disable());
 
-        http.authorizeHttpRequests(auth->auth
-                        .requestMatchers("/auth/**").permitAll()
+        http
+                .authorizeHttpRequests(auth->auth
+                        .requestMatchers("/auth/**")
+                        .permitAll()
                         .anyRequest()
-                        .authenticated());
-                // 配置httpBasic
-                //.httpBasic(Customizer.withDefaults());
+                        .authenticated()
+                )
+                .formLogin(formLogin->formLogin
+                        //.loginProcessingUrl("/auth/login")
+                        .successHandler(new LoginSuccessHandler())
+                        .failureHandler(new LoginFailHandler()
+                )
+        );
+        // 配置httpBasic
+        //.httpBasic(Customizer.withDefaults());
 
-        //http.logout((logout) -> logout.logoutUrl("/logout"));
+        http.logout(logout->logout
+                .logoutSuccessUrl("/login")
+                .logoutUrl("/logout")
+                .addLogoutHandler((request, response, authentication) -> {
+                    System.out.println(request.getMethod());
+                    System.out.println("===========LogoutHandler============");
+                })
 
-        http.formLogin(formLogin->formLogin
-//                .loginProcessingUrl("/auth/login")
-                .successHandler(new LoginSuccessHandler())
-                .failureHandler(new LoginFailHandler())
         );
 
-
-        http.csrf(c->c.disable());
-        http.cors(c->c.disable());
+        http.csrf(csrf->csrf.disable());
+        http.cors(cors->cors.disable());
 
         return http.build();
 
     }
+
+    /**
+     *
+     * 这个是注销logout 按照这个测试成功的
+     * https://juejin.cn/post/7153067327255232548
+     */
 
     /**
      * 定义需要忽略的请求路径
