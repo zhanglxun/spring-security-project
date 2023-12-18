@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: spring-security-base2
+  security:
+    user:
+      name: admin
+      password: 123456
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver

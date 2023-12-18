@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -18,7 +24,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(auth->auth
-                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("/").permitAll()
                         .anyRequest()
                         .authenticated())
                         // 配置httpBasic
@@ -26,9 +32,30 @@ public class SecurityConfig {
 
         return http.build();
 
-        //忽略的路径请求
-        //.
-
     }
 
+    @Bean
+    public UserDetailsService userDetailsService(){
+
+        InMemoryUserDetailsManager UserDetailsManager=new InMemoryUserDetailsManager();
+
+        UserDetails adminUser= User.withUsername("jarvis")
+                .password(new BCryptPasswordEncoder().encode("jarvis"))
+                .roles("admin")
+                .build();
+        UserDetails vipUser=User.withUsername("user")
+                .password(new BCryptPasswordEncoder().encode("user"))
+                .roles("user")
+                .build();
+
+        UserDetailsManager.createUser(adminUser);
+        UserDetailsManager.createUser(vipUser);
+        return UserDetailsManager;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // 构建密码编码器
+        return new BCryptPasswordEncoder();
+    }
 }

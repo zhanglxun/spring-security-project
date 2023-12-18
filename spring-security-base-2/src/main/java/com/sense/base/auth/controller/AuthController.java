@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 
+    @GetMapping("/login")
+    public String login() {
+        return "登录成功";
+    }
+
     @GetMapping("getAuth")
     public String getAuth(){
 

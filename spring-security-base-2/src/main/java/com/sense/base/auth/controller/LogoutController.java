@@ -17,10 +17,6 @@ public class LogoutController {
         return "Hello 2,"+name;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "登录成功";
-    }
 
 
     @GetMapping("/logout")
