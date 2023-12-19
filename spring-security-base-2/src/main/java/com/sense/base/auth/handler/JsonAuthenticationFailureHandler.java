@@ -4,7 +4,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -13,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import cn.hutool.json.JSONUtil;
 
-public class LoginFailHandler implements AuthenticationFailureHandler {
+public class JsonAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
 
     @Override

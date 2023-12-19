@@ -1,9 +1,9 @@
 package com.sense.base.auth.config;
 
-import com.sense.base.auth.handler.LoginFailHandler;
-import com.sense.base.auth.handler.LoginSuccessHandler;
+import com.sense.base.auth.handler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -20,42 +20,43 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 public class SecurityConfig {
 
-    LogoutSuccessHandler logoutSuccessHandler;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // 配置关闭csrf机制，
-        http.csrf(csrf -> csrf.disable());
+        //关闭CSRF机制
+        http.csrf(csrf->csrf.disable());
+        // 关闭跨域
+        http.cors(cors->cors.disable());
 
         http
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/auth/**")
+                        .requestMatchers("/auth/**","/logout","/login")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
                 )
                 .formLogin(formLogin->formLogin
-                        //.loginProcessingUrl("/auth/login")
-                        .successHandler(new LoginSuccessHandler())
-                        .failureHandler(new LoginFailHandler()
+                        .loginProcessingUrl("/login")
+                        .successHandler(new JsonAuthenticationSuccessHandler())
+                        .failureHandler(new JsonAuthenticationFailureHandler()
                 )
         );
         // 配置httpBasic
-        //.httpBasic(Customizer.withDefaults());
+        //http.httpBasic(Customizer.withDefaults());
 
+        //注销退出
         http.logout(logout->logout
-                .logoutSuccessUrl("/login")
                 .logoutUrl("/logout")
-                .addLogoutHandler((request, response, authentication) -> {
-                    System.out.println(request.getMethod());
-                    System.out.println("===========LogoutHandler============");
-                })
+                .logoutSuccessUrl("/login")
+                .addLogoutHandler(new JsonLogoutHandler())
+                .deleteCookies("JSESSIONID")
 
         );
-
-        http.csrf(csrf->csrf.disable());
-        http.cors(cors->cors.disable());
-
+        // 异常处理
+        /*http.exceptionHandling(exception->exception
+                .accessDeniedHandler(new JsonAccessDeniedHandler()) // 权限不足
+                .authenticationEntryPoint(new JsonAuthenticationEntryPoint()) // 未登录认证入口
+        );*/
         return http.build();
 
     }

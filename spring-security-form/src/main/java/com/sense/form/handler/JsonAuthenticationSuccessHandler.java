@@ -1,4 +1,4 @@
-package com.sense.base.auth.handler;
+package com.sense.form.handler;
 
 import cn.hutool.json.JSONUtil;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
