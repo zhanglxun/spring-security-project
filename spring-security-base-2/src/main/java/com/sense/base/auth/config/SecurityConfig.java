@@ -38,9 +38,10 @@ public class SecurityConfig {
                 .formLogin(formLogin->formLogin
                         .loginProcessingUrl("/login")
                         .successHandler(new JsonAuthenticationSuccessHandler())
-                        .failureHandler(new JsonAuthenticationFailureHandler()
-                )
-        );
+                        .failureHandler(new JsonAuthenticationFailureHandler())
+                ).rememberMe(httpSecurityRememberMeConfigurer -> {
+                    httpSecurityRememberMeConfigurer.tokenValiditySeconds(60*60*24*30);
+                });
         // 配置httpBasic
         //http.httpBasic(Customizer.withDefaults());
 
