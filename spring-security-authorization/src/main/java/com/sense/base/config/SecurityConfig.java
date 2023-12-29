@@ -38,7 +38,31 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
-
+/**
+ * 这是个Spring security 的过滤器链，默认会配置
+ * <p>
+ * OAuth2 Authorization endpoint
+ * <p>
+ * OAuth2 Token endpoint
+ * <p>
+ * OAuth2 Token Introspection endpoint
+ * <p>
+ * OAuth2 Token Revocation endpoint
+ * <p>
+ * OAuth2 Authorization Server Metadata endpoint
+ * <p>
+ * JWK Set endpoint
+ * <p>
+ * OpenID Connect 1.0 Provider Configuration endpoint
+ * <p>
+ * OpenID Connect 1.0 UserInfo endpoint
+ * 这些协议端点，只有配置了他才能够访问的到接口地址（类似mvc的controller）。
+ *
+ * @param
+ * @return
+ * @throws Exception
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -58,8 +82,8 @@ public class SecurityConfig {
                                 new LoginUrlAuthenticationEntryPoint("/login"))
                 )
         // Accept access tokens for User Info and/or Client Registration
-        .oauth2ResourceServer((resourceServer) -> resourceServer
-                .jwt(Customizer.withDefaults()))
+//        .oauth2ResourceServer((resourceServer) -> resourceServer
+//                .jwt(Customizer.withDefaults()))
         ;
 
         return http.build();
@@ -83,9 +107,9 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("admin")
+                .username("user")
                 .password("123456")
-                .roles("read")
+                .roles("USER")
                 .build();
 
         return new InMemoryUserDetailsManager(userDetails);
@@ -94,18 +118,19 @@ public class SecurityConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client")
+                .clientId("messaging-client")
                 .clientSecret("{noop}123456")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:9001/callback")
-//                .redirectUri("http://127.0.0.1:9001")
+//                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .redirectUri("http://127.0.0.1:9001/login/oauth2/code/messaging-client-oidc")
+                .redirectUri("http://127.0.0.1:9001/authorized")
                 .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                .scope("read")
-                .scope("write")
+//                .scope(OidcScopes.PROFILE)
+                .scope("message.read")
+                .scope("message.write")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
@@ -147,6 +172,10 @@ public class SecurityConfig {
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder().build();
     }
+
+//    public ProviderSettings providerSettings() {
+//        return ProviderSettings.builder().build();
+//    }
 
 
 }
