@@ -11,15 +11,19 @@ https://docs.spring.io/spring-security/reference/servlet/authentication/password
 
 - 参考的URL资源
 
-  ```
+  ```- 
   https://zhuanlan.zhihu.com/p/538443308
   https://springdoc.cn/spring-authorization-server/getting-started.html#installing-spring-authorization-server
   https://blog.csdn.net/weixin_42229668/article/details/132912917
   https://blog.csdn.net/weixin_42229668/article/details/132925597
   ```
 
-  
+- 资源请求端点查看
 
+  ```
+  http://127.0.0.1:9001/.well-known/openid-configuration
+  ```
+  
 - 请求发起，获取code
 
   ```
